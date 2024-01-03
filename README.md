@@ -12,7 +12,7 @@ Too impatient waiting for daily update? Run `fetch-aws-ip-ranges.sh` script dire
 
 Short URL
 ```
-sh -c "$(curl -fsSL http://s.id/parsed-aws-ip)"
+sh -c "$(curl -fsSL https://s.id/parsed-aws-ip)"
 ```
 
 Long URL
