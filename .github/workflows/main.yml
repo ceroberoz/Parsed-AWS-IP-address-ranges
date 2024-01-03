@@ -1,0 +1,26 @@
+name: Run Bash Script Twice a Day
+
+on:
+  schedule:
+    - cron: '0 0,12 * * *' # Schedule to run at midnight and noon (UTC time)
+
+jobs:
+  run_script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run Bash Script
+      run: |
+        chmod +x fetch-aws-ip-ranges.sh
+        ./fetch-aws-ip-ranges.sh
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.email "ceroberoz@gmail.com"
+        git config --global user.name "Perdana Hadi"
+        git add .
+        git commit -m "Run Bash script"
+        git push
