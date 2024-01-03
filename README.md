@@ -9,5 +9,5 @@ IP range checked and updated schedule to run at midnight (UTC time) on daily bas
 Too impatient waiting for daily update? Run `fetch-aws-ip-ranges.sh` script directly on your Linux / Mac terminal
 
 ```   
-curl -fsSL [https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh](https://raw.githubusercontent.com/ceroberoz/Parsed-AWS-IP-address-ranges/main/fetch-aws-ip-ranges.sh)https://raw.githubusercontent.com/ceroberoz/Parsed-AWS-IP-address-ranges/main/fetch-aws-ip-ranges.sh
+curl -fsSL https://raw.githubusercontent.com/ceroberoz/Parsed-AWS-IP-address-ranges/main/fetch-aws-ip-ranges.sh
 ```
