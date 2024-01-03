@@ -1,1 +1,3 @@
-AWS IP address ranges, parsed for convinience.
+AWS IP address ranges from https://ip-ranges.amazonaws.com/ip-ranges.json
+
+Parsed for convinience.
