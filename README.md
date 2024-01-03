@@ -12,11 +12,11 @@ Too impatient waiting for daily update? Run `fetch-aws-ip-ranges.sh` script dire
 
 Short URL
 ```
-sh -c "$(curl -fsSL https://s.id/parsed-aws-ip)"
+curl -fsSL https://s.id/parsed-aws-ip | sh
 ```
 
 Long URL
 
 ```   
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ceroberoz/Parsed-AWS-IP-address-ranges/main/fetch-aws-ip-ranges.sh)"
+curl -fsSL https://raw.githubusercontent.com/ceroberoz/Parsed-AWS-IP-address-ranges/main/fetch-aws-ip-ranges.sh | sh
 ```
