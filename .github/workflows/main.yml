@@ -1,8 +1,8 @@
-name: Run Bash Script Twice a Day
+name: Run Bash Script Once a Day
 
 on:
   schedule:
-    - cron: '0 0,12 * * *' # Schedule to run at midnight and noon (UTC time)
+    - cron: '0 0 * * *' # Schedule to run at midnight (UTC time)
 
 jobs:
   run_script:
@@ -20,7 +20,7 @@ jobs:
     - name: Commit and push changes
       run: |
         git config --global user.email "ceroberoz@gmail.com"
-        git config --global user.name "Perdana Hadi"
+        git config --global user.name "BOT - Perdana Hadi"
         git add .
         git commit -m "Run Bash script"
         git push
