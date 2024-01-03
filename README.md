@@ -4,4 +4,10 @@ Parsed per service, region and IPs (v4 & v6) for convinience.
 
 ![alt text](https://github.com/ceroberoz/Parsed-AWS-IP-address-ranges/blob/main/sample-output.png?raw=true)
 
-IP range checked and updated schedule to run at midnight (UTC time)
+IP range checked and updated schedule to run at midnight (UTC time) on daily basis.
+
+Too impatient waiting for daily update? Run `fetch-aws-ip-ranges.sh` script directly on your Linux / Mac terminal
+
+```   
+curl -fsSL [https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh](https://raw.githubusercontent.com/ceroberoz/Parsed-AWS-IP-address-ranges/main/fetch-aws-ip-ranges.sh)https://raw.githubusercontent.com/ceroberoz/Parsed-AWS-IP-address-ranges/main/fetch-aws-ip-ranges.sh
+```
