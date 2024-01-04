@@ -28,6 +28,9 @@ jobs:
       # Commit all changed files back to the repository
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
+        # Trigger new workflow run with PAT
+        token: ${{ secrets.PAT }}
+        
         # Optional. Commit message for the created commit.
         # Defaults to "Apply automatic changes"
         commit_message: Automated Change
