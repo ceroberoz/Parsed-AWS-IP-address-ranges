@@ -8,6 +8,11 @@ jobs:
   run_script:
     runs-on: ubuntu-latest
 
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -18,9 +23,10 @@ jobs:
         ./fetch-aws-ip-ranges.sh
 
     - name: Commit and push changes
-      run: |
-        git config --global user.email "ceroberoz@gmail.com"
-        git config --global user.name "BOT - Perdana Hadi"
-        git add .
-        git commit -m "Run Bash script"
-        git push
+      # Commit all changed files back to the repository
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          # Optional. Commit message for the created commit.
+          # Defaults to "Apply automatic changes"
+          commit_message: Automated Change
+
