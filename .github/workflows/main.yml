@@ -2,7 +2,9 @@ name: Run Bash Script Once a Day
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Schedule to run at midnight (UTC time)
+    - cron: '*/5 * * * *' # Schedule to run every 5 minutes (UTC time)
+    # main
+    # - cron: '0 0 * * *' # Schedule to run at midnight (UTC time)
 
 jobs:
   run_script:
