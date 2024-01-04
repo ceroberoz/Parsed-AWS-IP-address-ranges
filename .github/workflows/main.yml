@@ -8,9 +8,7 @@ on:
   pull_request_target:
   
   schedule:
-    - cron: '*/5 * * * *' # Schedule to run every 5 minutes (UTC time)
-    # main
-    # - cron: '0 0 * * *' # Schedule to run at midnight (UTC time)
+    - cron: '0 0 * * *' # Schedule to run at midnight (UTC time)
 
 jobs:
   auto-fetch-runner:
