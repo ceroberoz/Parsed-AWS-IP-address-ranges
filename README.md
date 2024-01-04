@@ -1,3 +1,5 @@
+[![auto-fetch-runner](https://github.com/ceroberoz/Parsed-AWS-IP-address-ranges/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/ceroberoz/Parsed-AWS-IP-address-ranges/actions/workflows/main.yml)
+
 AWS IP address ranges from https://ip-ranges.amazonaws.com/ip-ranges.json
 
 Parsed per service, region and IPs (v4 & v6) for convinience.
