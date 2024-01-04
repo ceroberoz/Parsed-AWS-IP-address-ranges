@@ -1,13 +1,19 @@
-name: Run Bash Script Once a Day
+name: auto-fetch-runner
 
 on:
+  # Set main branch
+  push:
+    branches:
+      - main
+  pull_request_target:
+  
   schedule:
     - cron: '*/5 * * * *' # Schedule to run every 5 minutes (UTC time)
     # main
     # - cron: '0 0 * * *' # Schedule to run at midnight (UTC time)
 
 jobs:
-  run_script:
+  auto-fetch-runner:
     runs-on: ubuntu-latest
 
     permissions:
@@ -17,9 +23,21 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
+      with:
+        # Trigger new workflow run with PAT
+        token: ${{ secrets.PAT }}
+        
+        # Checkout the fork/head-repository and push changes to the fork.
+        # If you skip this, the base repository will be checked out and changes
+        # will be committed to the base repository!
+        repository: ${{ github.event.pull_request.head.repo.full_name }}
 
-    - name: Run Bash Script
+        # Checkout the branch made in the fork. Will automatically push changes
+        # back to this branch.
+        ref: ${{ github.head_ref }}
+
+    - name: Run Fetch AWS IP Script
       run: |
         chmod +x fetch-aws-ip-ranges.sh
         ./fetch-aws-ip-ranges.sh
@@ -28,10 +46,7 @@ jobs:
       # Commit all changed files back to the repository
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
-        # Trigger new workflow run with PAT
-        token: ${{ secrets.PAT }}
-        
         # Optional. Commit message for the created commit.
         # Defaults to "Apply automatic changes"
-        commit_message: Automated Change
-
+        commit_message: ${{ github.event.head_commit.message }}
+        push_options: --force
