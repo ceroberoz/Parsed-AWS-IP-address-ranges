@@ -28,15 +28,18 @@ jobs:
         chmod +x fetch-aws-ip-ranges.sh
         ./fetch-aws-ip-ranges.sh
 
-    - name: Generate dynamic commit message & push changes
+    - name: Generate dynamic changelogs
       run: |
-        git config --global user.name "Perdana Hadi"
-        git config --global user.email "ceroberoz@gmail.com"
-        git add .
         chmod +x generate_commit_message.sh
         ./generate_commit_message.sh
+
+    - name: Push changes
+      run: |
+        git config --global user.name "${{ secrets.GH_NAME }}"
+        git config --global user.email "${{ secrets.GH_EMAIL }}"
+        git add .
         git commit --amend --no-edit
         git push origin main || echo "No changes to push"
 
     - name: Complete steps
-      run: echo "All steps completed, whether changes were pushed or not"
+      run: echo "All steps completed"
