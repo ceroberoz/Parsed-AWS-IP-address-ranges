@@ -31,10 +31,10 @@ jobs:
 
     - name: Generate dynamic commit message
       run: |
-        commit_message=$(git diff --name-status)
-        echo "COMMIT_MESSAGE=${commit_message}" >> $GITHUB_ENV
+        git diff --name-status > commit_message.txt
+        echo "COMMIT_MESSAGE_FILE=commit_message.txt" >> $GITHUB_ENV
 
     - name: Commit and push changes
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
-        commit_message: ${{ env.COMMIT_MESSAGE }}
+        commit_message: $(cat ${{ env.COMMIT_MESSAGE_FILE }})
