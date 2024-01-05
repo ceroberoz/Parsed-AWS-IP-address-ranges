@@ -5,6 +5,7 @@ on:
     branches:
       - main
   pull_request_target:
+  
   schedule:
     - cron: '0 0 * * *' # Schedule to run at midnight (UTC time)
 
@@ -28,18 +29,13 @@ jobs:
         chmod +x fetch-aws-ip-ranges.sh
         ./fetch-aws-ip-ranges.sh
 
-    - name: Generate dynamic changelogs
+    - name: Generate dynamic commit message
+      id: commit_message
       run: |
-        chmod +x generate_commit_message.sh
-        ./generate_commit_message.sh
+        commit_message=$(git diff --name-only)
+        echo "::set-output name=message::${commit_message}"
 
-    - name: Push changes
-      run: |
-        git config --global user.name "${{ secrets.GH_NAME }}"
-        git config --global user.email "${{ secrets.GH_EMAIL }}"
-        git add .
-        git commit --amend --no-edit
-        git push origin main || (git pull origin main && git push origin main)
-
-    - name: Complete steps
-      run: echo "All steps completed"
+    - name: Commit and push changes
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: ${{ steps.commit_message.outputs.message }}
