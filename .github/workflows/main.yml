@@ -39,7 +39,7 @@ jobs:
         git config --global user.email "${{ secrets.GH_EMAIL }}"
         git add .
         git commit --amend --no-edit
-        git push origin main || echo "No changes to push"
+        git push origin main || (git pull origin main && git push origin main)
 
     - name: Complete steps
       run: echo "All steps completed"
