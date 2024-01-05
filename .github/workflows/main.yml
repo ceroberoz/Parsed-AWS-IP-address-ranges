@@ -40,6 +40,15 @@ jobs:
         chmod +x fetch-aws-ip-ranges.sh
         ./fetch-aws-ip-ranges.sh
 
-    - name: Commit and push changes
-      # Commit all changed files back to the repository
-      uses: stefanzweifel/git-auto-commit-action@v5
+    - name: Generate dynamic commit message
+      run: |
+          chmod +x generate_commit_message.sh
+          ./generate_commit_message.sh
+          
+    - name: Commit changes
+      run: |
+        git config --global user.name "Perdana Hadi"
+        git config --global user.email "ceroberoz@gmail.com"
+        git add .
+        git commit --amend --no-edit
+        git push origin main
