@@ -32,7 +32,7 @@ jobs:
     - name: Generate dynamic commit message
       id: commit_message
       run: |
-        commit_message=$(git diff --name-only)
+        commit_message=$(git diff --name-status)
         echo "::set-output name=message::${commit_message}"
 
     - name: Commit and push changes
