@@ -43,8 +43,3 @@ jobs:
     - name: Commit and push changes
       # Commit all changed files back to the repository
       uses: stefanzweifel/git-auto-commit-action@v5
-      with:
-        # Optional. Commit message for the created commit.
-        # Defaults to "Apply automatic changes"
-        commit_message: ${{ github.event.head_commit.message }}
-        push_options: --force
