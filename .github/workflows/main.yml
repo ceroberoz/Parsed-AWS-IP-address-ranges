@@ -1,12 +1,10 @@
 name: auto-fetch-runner
 
 on:
-  # Set main branch
   push:
     branches:
       - main
   pull_request_target:
-  
   schedule:
     - cron: '0 0 * * *' # Schedule to run at midnight (UTC time)
 
@@ -15,32 +13,29 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      # Give the default GITHUB_TOKEN write permission to commit and push the
-      # added or changed files to the repository.
       contents: write
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        # Trigger new workflow run with PAT
         token: ${{ secrets.PAT }}
-        
-        # Checkout the fork/head-repository and push changes to the fork.
-        # If you skip this, the base repository will be checked out and changes
-        # will be committed to the base repository!
         repository: ${{ github.event.pull_request.head.repo.full_name }}
-
-        # Checkout the branch made in the fork. Will automatically push changes
-        # back to this branch.
         ref: ${{ github.head_ref }}
 
     - name: Run Fetch AWS IP Script
       run: |
         chmod +x fetch-aws-ip-ranges.sh
         ./fetch-aws-ip-ranges.sh
-     
+
+    - name: Check for changes
+      id: check_changes
+      run: |
+        git diff --exit-code || echo "Changes detected"
+      continue-on-error: true
+
     - name: Generate dynamic commit message & push changes
+      if: steps.check_changes.outputs.return-code == '0'
       run: |
         git config --global user.name "Perdana Hadi"
         git config --global user.email "ceroberoz@gmail.com"
