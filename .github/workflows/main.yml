@@ -28,14 +28,7 @@ jobs:
         chmod +x fetch-aws-ip-ranges.sh
         ./fetch-aws-ip-ranges.sh
 
-    - name: Check for changes
-      id: check_changes
-      run: |
-        git diff --exit-code || echo "Changes detected"
-      continue-on-error: true
-
     - name: Generate dynamic commit message & push changes
-      if: steps.check_changes.outputs.return-code == '0'
       run: |
         git config --global user.name "Perdana Hadi"
         git config --global user.email "ceroberoz@gmail.com"
@@ -43,4 +36,7 @@ jobs:
         chmod +x generate_commit_message.sh
         ./generate_commit_message.sh
         git commit --amend --no-edit
-        git push origin main
+        git push origin main || echo "No changes to push"
+
+    - name: Complete steps
+      run: echo "All steps completed, whether changes were pushed or not"
