@@ -10,7 +10,9 @@ IP range checked and updated schedule to run at midnight (UTC time) on daily bas
 
 ---
 
-Too impatient waiting for daily update? Run `fetch-aws-ip-ranges.sh` script directly on your Linux / Mac terminal
+Too impatient waiting for daily update? Run `fetch-aws-ip-ranges.sh` script directly on your Linux / Mac terminal.
+
+Required `curl` and `jq` installed before running Shell below.
 
 Short URL
 ```
