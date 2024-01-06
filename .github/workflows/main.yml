@@ -30,11 +30,13 @@ jobs:
         ./fetch-aws-ip-ranges.sh
 
     - name: Generate dynamic commit message
+      id: commit_message_step
       run: |
         git diff --name-status > commit_message.txt
         echo "COMMIT_MESSAGE_FILE=commit_message.txt" >> $GITHUB_ENV
 
     - name: Commit and push changes
       uses: stefanzweifel/git-auto-commit-action@v5
+      id: commit
       with:
-        commit_message: $(cat ${{ env.COMMIT_MESSAGE_FILE }})
+        commit_message: ${{ steps.commit_message_step.outputs.commit_message }}
