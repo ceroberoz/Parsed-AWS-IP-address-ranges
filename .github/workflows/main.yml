@@ -24,28 +24,12 @@ jobs:
         repository: ${{ github.event.pull_request.head.repo.full_name }}
         ref: ${{ github.head_ref }}
 
-    - name: Merge for any remote changes
-      run: |
-        git pull --rebase origin main
-
     - name: Run Fetch AWS IP Script
       run: |
         chmod +x fetch-aws-ip-ranges.sh
         ./fetch-aws-ip-ranges.sh
 
-    - name: Generate dynamic commit message
-      id: commit_message_step
-      run: |
-        git diff --name-status > commit_message.txt
-        COMMIT_MESSAGE=$(cat commit_message.txt)
-        if [ -z "$COMMIT_MESSAGE" ]; then
-          echo "COMMIT_MESSAGE=updated" >> $GITHUB_ENV
-        else
-          echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
-        fi
-
     - name: Commit and push changes
       uses: stefanzweifel/git-auto-commit-action@v5
-      id: commit
       with:
-        commit_message: ${{ steps.commit_message_step.outputs.COMMIT_MESSAGE }}
+        commit_message: "updated"
