@@ -29,6 +29,11 @@ jobs:
         chmod +x fetch-aws-ip-ranges.sh
         ./fetch-aws-ip-ranges.sh
 
+    - name: Check for any remote changes
+      run: |
+        git fetch
+        git pull
+
     - name: Generate dynamic commit message
       id: commit_message_step
       run: |
