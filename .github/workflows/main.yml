@@ -24,15 +24,15 @@ jobs:
         repository: ${{ github.event.pull_request.head.repo.full_name }}
         ref: ${{ github.head_ref }}
 
+    - name: Check for any remote changes
+      run: |
+        git pull --rebase origin master
+        git push origin master
+
     - name: Run Fetch AWS IP Script
       run: |
         chmod +x fetch-aws-ip-ranges.sh
         ./fetch-aws-ip-ranges.sh
-
-    - name: Check for any remote changes
-      run: |
-        git fetch
-        git pull
 
     - name: Generate dynamic commit message
       id: commit_message_step
