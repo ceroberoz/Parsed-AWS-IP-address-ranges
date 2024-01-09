@@ -24,10 +24,9 @@ jobs:
         repository: ${{ github.event.pull_request.head.repo.full_name }}
         ref: ${{ github.head_ref }}
 
-    - name: Check for any remote changes
+    - name: Merge for any remote changes
       run: |
         git pull --rebase origin main
-        git push origin main
 
     - name: Run Fetch AWS IP Script
       run: |
@@ -38,10 +37,15 @@ jobs:
       id: commit_message_step
       run: |
         git diff --name-status > commit_message.txt
-        echo "COMMIT_MESSAGE_FILE=commit_message.txt" >> $GITHUB_ENV
+        COMMIT_MESSAGE=$(cat commit_message.txt)
+        if [ -z "$COMMIT_MESSAGE" ]; then
+          echo "COMMIT_MESSAGE=updated" >> $GITHUB_ENV
+        else
+          echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
+        fi
 
     - name: Commit and push changes
       uses: stefanzweifel/git-auto-commit-action@v5
       id: commit
       with:
-        commit_message: ${{ steps.commit_message_step.outputs.commit_message }}
+        commit_message: ${{ steps.commit_message_step.outputs.COMMIT_MESSAGE }}
