@@ -37,4 +37,4 @@ https://github.com/ceroberoz/Parsed-GCP-IP-address-ranges
 
 Need only AWS Cloudfront IP regardless region? See my other repository
 
-https://github.com/ceroberoz/Parsed-AWS-Cloudfront/blob/main/README.md
+https://github.com/ceroberoz/Parsed-AWS-Cloudfront
