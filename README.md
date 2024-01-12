@@ -24,3 +24,13 @@ Long URL
 ```   
 curl -fsSL https://raw.githubusercontent.com/ceroberoz/Parsed-AWS-IP-address-ranges/main/fetch-aws-ip-ranges.sh | sh
 ```
+
+---
+
+# Misc
+
+Need Google Cloud Platform with same format? See my other repository
+https://github.com/ceroberoz/Parsed-GCP-IP-address-ranges
+
+Need only AWS Cloudfront IP regardless region? See my other repository
+https://github.com/ceroberoz/Parsed-AWS-Cloudfront/blob/main/README.md
