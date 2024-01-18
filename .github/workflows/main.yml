@@ -32,4 +32,4 @@ jobs:
     - name: Commit and push changes
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
-        commit_message: "updated"
+        commit_message: "[skip ci] - updated"
