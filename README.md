@@ -24,7 +24,7 @@ Long URL
 ```   
 curl -fsSL https://raw.githubusercontent.com/ceroberoz/Parsed-AWS-IP-address-ranges/main/fetch-aws-ip-ranges.sh | sh
 ```
-
+ 
 ---
 
 # Misc
