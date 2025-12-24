@@ -33,3 +33,7 @@ jobs:
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: "[skip ci] - updated"
+        # Add the following line to provide the required authentication value
+        branch: ${{ github.head_ref }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}
