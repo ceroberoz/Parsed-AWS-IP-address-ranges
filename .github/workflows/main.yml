@@ -2,38 +2,39 @@ name: auto-fetch-runner
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request_target:
-  
   schedule:
-    - cron: '0 0 * * *' # Schedule to run at midnight (UTC time)
+    - cron: '0 0 * * *'
 
 jobs:
   auto-fetch-runner:
     runs-on: ubuntu-latest
-
     permissions:
       contents: write
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.PAT }}
-        repository: ${{ github.event.pull_request.head.repo.full_name }}
-        ref: ${{ github.head_ref }}
+      # Verification: Use v4 (latest) and handle dynamic context for repository/ref
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT }}
+          # Logic: Fallback to current repo if pull_request_target data is null
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          ref: ${{ github.event.pull_request.head.ref || github.ref }}
+          persist-credentials: true
 
-    - name: Run Fetch AWS IP Script
-      run: |
-        chmod +x fetch-aws-ip-ranges.sh
-        ./fetch-aws-ip-ranges.sh
+      - name: Run Fetch AWS IP Script
+        run: |
+          chmod +x fetch-aws-ip-ranges.sh
+          ./fetch-aws-ip-ranges.sh
 
-    - name: Commit and push changes
-      uses: stefanzweifel/git-auto-commit-action@v5
-      with:
-        commit_message: "[skip ci] - updated"
-        # Add the following line to provide the required authentication value
-        branch: ${{ github.head_ref }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.PAT }}
+      # Verification: Use v5 (latest) with explicit branch and token environment
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "[skip ci] - updated AWS IP ranges"
+          # Ensures the commit goes back to the correct branch/PR head
+          branch: ${{ github.event.pull_request.head.ref || github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
